@@ -1,0 +1,59 @@
+---
+title: "Pr1"
+author: "Blinkova_A_A"
+date: "2023-11-17"
+output: html_document
+---
+# Исследование
+```{r echo=FALSE, message = FALSE, warning=FALSE}
+setwd("D:\\Прога\\ЦК анализ мед данных\\Основы программирования на R")
+library(dplyr)
+library(ggplot2)
+```
+**Текст**, текст, *текст*, текст, ~~текст~~, текст, текст
+```{r  echo=FALSE, message = FALSE, warning=FALSE}
+  name <- c("Анна", "Екатерина", "Борис", "Анатолий",
+            "Виктор", "Мария", "Сергей")
+
+  height <- c(150, 170, 165, 180, 201, 168, 175)
+  
+  weight <- c(65, 50, 80, 90, 102, 56, 64)
+  
+  eye <- c("Синий", "Зеленый", "Серый", "Карий",
+           "Синий", "Зеленый", "Карий")
+  
+  illness <- c("Нет", "Нет", "Да", "Да",
+               "Нет", "Да", "Да")
+  
+data <- data.frame(name, height, weight, eye, illness)
+new_data <- data %>%
+  mutate(status = ifelse(illness == "Да", 1, 0))
+new_data
+```
+## Таблица со столбцом BMI
+```{r echo=FALSE, message = FALSE, warning=FALSE}
+new_data_1 <- new_data %>%
+  mutate(
+    BMI = weight / ((height /100)^2))
+new_data_1
+```
+
+```{r echo=FALSE, message = FALSE, warning=FALSE, results='hide'}
+new_data_1$name
+count(new_data_1)
+```
+
+```{r echo=FALSE, message = FALSE, warning=FALSE}
+data(new_data_1)
+plot(x = new_data_1$height, y = new_data_1$weight, type="p", main="График рассеивания", col = ifelse(new_data_1$status == 1, "red", "black"), xlab="height", ylab="weight")
+legend(x = "bottomright", legend = c("Красный - болен", "Черный - не болен"))
+
+
+```
+
+
+
+
+
+
+
